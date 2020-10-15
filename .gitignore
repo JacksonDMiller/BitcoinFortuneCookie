@@ -102,3 +102,4 @@ dist
 
 # TernJS port file
 .tern-port
+bitcoin-fortune-cookie/src/server/config/keys.js
