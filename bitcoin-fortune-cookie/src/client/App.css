@@ -36,3 +36,36 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background: cadetblue;
+  max-width: 700px;
+  margin: auto;
+}
+
+.logo {
+  margin: -100px;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+}
+
+/* Bottom left text */
+.fortune-box {
+  display: flex;
+  position: absolute;
+  bottom: 150px;
+  left: 235px;
+  width: 200px;
+  transform: rotate(27deg);
+  /* background-color: #61dafb; */
+  height: 60px;
+  align-items: center;
+}
+
+.fortune {
+  margin: auto;
+  padding: 5px;
+}

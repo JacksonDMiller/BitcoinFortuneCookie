@@ -6,6 +6,8 @@ const cookieSchema = new Schema({
   fortune: String,
   invoice: String,
   paid: Boolean,
+  recipient: String,
+  sender: String,
 });
 
 const Cookies = mongoose.model("Cookies", cookieSchema);
