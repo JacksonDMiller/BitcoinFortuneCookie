@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "express": "^4.17.1",
+    "jimp": "^0.16.1",
     "ln-service": "^49.14.0",
     "mongoose": "^5.10.9",
     "qrcode.react": "^1.0.0",
@@ -17,12 +18,14 @@
   },
   "proxy": "http://localhost:8080",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run build\" \"npm run server\"",
+    "devstart": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon src/server/server.js",
-    "dev": "concurrently \"npm run server\" \"npm run start\""
+    "server": "node src/server/server.js",
+    "nodemonServer": "nodemon src/server/server.js",
+    "dev": "concurrently \"npm run nodemonServer\" \"npm run devstart\""
   },
   "eslintConfig": {
     "extends": "react-app"

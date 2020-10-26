@@ -32,6 +32,9 @@ function App() {
   };
 
   const requestCookieDelivery = async (e) => {
+    if (sender) {
+      setSender("Someone");
+    }
     e.preventDefault();
     if (!validTwitteUser(recipient)) {
       alert(`that's not a twitter handle`);
@@ -86,18 +89,22 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="container">
       <img className="logo" src={logo} alt="Logo" />
       {mode === "waiting" ? (
         <div>
-          <button onClick={requestCookie}>Buy a cookie</button>
-          <button onClick={() => setMode("sending")}>Send a cookie</button>
+          <button className="button" onClick={requestCookie}>
+            Buy a cookie
+          </button>
+          <button className="button" onClick={() => setMode("sending")}>
+            Send a cookie
+          </button>
         </div>
       ) : null}
       {mode === "buying" ? (
         <div>
           {fortune ? (
-            <div className="container">
+            <div className="cookie-container">
               <img src={openingCookie} style={{ width: "500px" }} alt="" />
               <div className="fortune-box">
                 <p className="fortune">{fortune}</p>
@@ -166,7 +173,11 @@ function App() {
         </div>
       ) : null}
 
-      {mode !== "waiting" ? <button onClick={reset}>Reset</button> : null}
+      {mode !== "waiting" ? (
+        <button className="button" onClick={reset}>
+          Reset
+        </button>
+      ) : null}
     </div>
   );
 }
