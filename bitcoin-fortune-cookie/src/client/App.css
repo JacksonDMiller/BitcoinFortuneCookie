@@ -23,9 +23,9 @@ body {
   display: flex;
   position: absolute;
   bottom: 155px;
-  left: 135px;
+  left: 95px;
   width: 200px;
-  transform: rotate(27deg);
+  transform: rotate(22deg);
   /* background-color: #61dafb; */
   height: 60px;
   align-items: center;

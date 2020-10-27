@@ -38,7 +38,7 @@ sub.on("invoice_updated", async (invoice) => {
       const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
       const fontCanvas = await Jimp.create(1054, 597);
       const destImage = await Jimp.read("./src/assets/open-cookie.png");
-      fontCanvas.print(font, 100, 50, doc.fortune, 410).rotate(-27);
+      fontCanvas.print(font, 150, 140, doc.fortune, 410).rotate(-22);
       destImage
         .blit(fontCanvas, 0, 0)
         .writeAsync(`${doc._id}.png`)
@@ -46,33 +46,33 @@ sub.on("invoice_updated", async (invoice) => {
           const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
 
           // there is a recepient so send them a tweet to tell them about the cookie
-          client.post("media/upload", { media: cookieImage }, function (
-            error,
-            media,
-            response
-          ) {
-            if (error) {
-              console.log(error);
-            } else {
-              const status = {
-                status: `Hey ${doc.recipient}, \n${doc.sender} sent you a fortune cookie.\n\nSend a cookie back at BitcoinCookie.com`,
-                media_ids: media.media_id_string,
-              };
+          // client.post("media/upload", { media: cookieImage }, function (
+          //   error,
+          //   media,
+          //   response
+          // ) {
+          //   if (error) {
+          //     console.log(error);
+          //   } else {
+          //     const status = {
+          //       status: `Hey ${doc.recipient}, \n${doc.sender} sent you a fortune cookie.\n\nSend a cookie back at BitcoinCookie.com`,
+          //       media_ids: media.media_id_string,
+          //     };
 
-              client.post("statuses/update", status, function (
-                error,
-                tweet,
-                response
-              ) {
-                if (error) {
-                  console.log(error);
-                } else {
-                  console.log("Successfully tweeted an image!");
-                  fs.unlinkSync(`./${doc._id}.png`);
-                }
-              });
-            }
-          });
+          //     client.post("statuses/update", status, function (
+          //       error,
+          //       tweet,
+          //       response
+          //     ) {
+          //       if (error) {
+          //         console.log(error);
+          //       } else {
+          //         console.log("Successfully tweeted an image!");
+          //         fs.unlinkSync(`./${doc._id}.png`);
+          //       }
+          //     });
+          //   }
+          // });
         });
     }
     doc.paid = true;
@@ -150,12 +150,13 @@ module.exports = function (app) {
     const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
     const fontCanvas = await Jimp.create(1054, 597);
     const destImage = await Jimp.read("./src/assets/open-cookie.png");
-
-    fontCanvas.print(font, 100, 50, doc.fortune, 410).rotate(-27);
-
-    // fontCanvas.print(font, 120, 100, doc.fortune).rotate(-27);
-
-    destImage.blit(fontCanvas, 0, 0).writeAsync(`${doc._id}.png`);
+    fontCanvas.print(font, 150, 140, doc.fortune, 410).rotate(-22);
+    destImage
+      .blit(fontCanvas, 0, 0)
+      .writeAsync(`${doc._id}.png`)
+      .then(async () => {
+        const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
+      });
   };
   // test();
 };
