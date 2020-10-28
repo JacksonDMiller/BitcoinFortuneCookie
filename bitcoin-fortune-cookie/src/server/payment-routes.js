@@ -35,10 +35,10 @@ sub.on("invoice_updated", async (invoice) => {
     });
     if (doc.recipient) {
       // put the the fortune text on the open cookie image
-      const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
-      const fontCanvas = await Jimp.create(1054, 597);
+      const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
+      const fontCanvas = await Jimp.create(2560, 1440);
       const destImage = await Jimp.read("./src/assets/open-cookie.png");
-      fontCanvas.print(font, 150, 140, doc.fortune, 410).rotate(-22);
+      fontCanvas.print(font, 240, 340, doc.fortune, 950).rotate(-19);
       destImage
         .blit(fontCanvas, 0, 0)
         .writeAsync(`${doc._id}.png`)
@@ -55,7 +55,7 @@ sub.on("invoice_updated", async (invoice) => {
               console.log(error);
             } else {
               const status = {
-                status: `Hey ${doc.recipient}, \n${doc.sender} sent you a fortune cookie.\n\nSend a cookie back at BitcoinCookie.com`,
+                status: `Hey ${doc.recipient}, \n${doc.sender} sent you a fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`,
                 media_ids: media.media_id_string,
               };
 
@@ -147,10 +147,10 @@ module.exports = function (app) {
         "Hello this is a long fortune this is even longer and this is even longer",
       _id: 1654655555,
     };
-    const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
-    const fontCanvas = await Jimp.create(1054, 597);
+    const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
+    const fontCanvas = await Jimp.create(2560, 1440);
     const destImage = await Jimp.read("./src/assets/open-cookie.png");
-    fontCanvas.print(font, 150, 140, doc.fortune, 410).rotate(-22);
+    fontCanvas.print(font, 240, 340, doc.fortune, 950).rotate(-19);
     destImage
       .blit(fontCanvas, 0, 0)
       .writeAsync(`${doc._id}.png`)

@@ -1,70 +1,106 @@
 body {
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background: cadetblue;
+  background: rgb(0, 107, 161);
 }
 
 .logo {
+  max-width: 100%;
   margin-bottom: -100px;
   margin-top: -100px;
 }
 
-.cookie-container {
+.cookie-fortune-container {
   position: relative;
   text-align: center;
-  width: 500px;
+  width: 550px;
   margin: 0 auto;
 }
 
+@media only screen and (max-width: 600px) {
+  .cookie-fortune-container {
+    width: 350px !important;
+  }
+}
+
+.mode-container {
+}
+
+@media only screen and (max-width: 600px) {
+  .cookie-image {
+    width: 350px !important;
+  }
+}
+
+.cookie-image {
+  margin-top: -5%;
+  width: 550px;
+}
 /* Bottom left text */
 .fortune-box {
   display: flex;
   position: absolute;
-  bottom: 155px;
-  left: 95px;
-  width: 200px;
-  transform: rotate(22deg);
+  bottom: 165px;
+  left: 105px;
+  width: 220px;
+  transform: rotate(21deg);
   /* background-color: #61dafb; */
-  height: 60px;
+  height: 65px;
   align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .fortune-box {
+    bottom: 110px !important;
+    left: 65px !important;
+    width: 140px !important;
+    height: 45px !important;
+  }
 }
 
 .fortune {
   margin: auto;
   padding: 5px;
-  font-size: 15px;
+  color: black;
+}
+
+@media only screen and (max-width: 600px) {
+  .fortune {
+    font-size: 10px;
+  }
 }
 
 .container {
-  width: 80%;
-  margin: 0 auto;
+  max-width: 900px;
+  margin: auto;
   text-align: center;
-  display: block;
 }
 
 .button {
-  box-shadow: inset 0px 0px 15px 3px #23395e;
-  background: linear-gradient(to bottom, #2e466e 5%, #415989 100%);
-  background-color: #2e466e;
-  border-radius: 6px;
-  border: 1px solid #1f2f47;
+  background: #ffffff;
+  border-radius: 11px;
+  padding: 10px 18px;
+  color: #ff9900;
   display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: Arial;
-  font-size: 15px;
-  padding: 11px 16px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #263666;
-  margin: 15px;
+  font: normal bold 26px/1 "Open Sans", sans-serif;
+  text-align: center;
+  margin: 5px;
+  width: 200px;
 }
-.button:hover {
-  background: linear-gradient(to bottom, #415989 5%, #2e466e 100%);
-  background-color: #415989;
+@media only screen and (max-width: 600px) {
+  .button {
+    width: 80%;
+  }
 }
-.button:active {
-  position: relative;
-  top: 1px;
+
+p {
+  color: #ff9900;
+}
+
+a {
+  color: #ff9900;
+}
+
+.sending-text-input {
+  border-radius: 7px;
+  height: 30px;
+  width: 200px;
 }
