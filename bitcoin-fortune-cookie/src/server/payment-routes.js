@@ -143,8 +143,7 @@ module.exports = function (app) {
 
   const test = async () => {
     doc = {
-      fortune:
-        "Hello this is a long fortune this is even longer and this is even longer",
+      fortune: "1 Satoshi = 1 Satoshi",
       _id: 1654655555,
     };
     const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
@@ -155,7 +154,9 @@ module.exports = function (app) {
       .blit(fontCanvas, 0, 0)
       .writeAsync(`${doc._id}.png`)
       .then(async () => {
-        const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
+        setTimeout(async () => {
+          const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
+        }, 5000);
       });
   };
   // test();
