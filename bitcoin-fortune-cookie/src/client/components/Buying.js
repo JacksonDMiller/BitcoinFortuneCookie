@@ -7,6 +7,7 @@ export default function Sending(props) {
   const { setMode } = props;
   const [invoice, setInvoice] = useState("");
   const [fortune, setFortune] = useState("");
+  const [showFortune, setShowForutne] = useState("none");
 
   useEffect(() => {
     requestCookie();
@@ -44,9 +45,16 @@ export default function Sending(props) {
     <div className="mode-container">
       {fortune ? (
         <div className="cookie-fortune-container">
-          <img className="cookie-image" src={openingCookie} alt="" />
+          <img
+            // onLoad={() => setShowForutne("block")}
+            className="cookie-image"
+            src={openingCookie}
+            alt=""
+          />
           <div className="fortune-box">
-            <p className="fortune">{fortune}</p>
+            <p style={{ display: { showFortune } }} className="fortune">
+              {fortune}
+            </p>
           </div>
         </div>
       ) : (

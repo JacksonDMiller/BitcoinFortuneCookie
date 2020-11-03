@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./App.css";
+// import "./App.css";
 import logo from "../assets/logo.png";
 import Waiting from "./components/Waiting.js";
 import Buying from "./components/Buying.js";
