@@ -41,6 +41,10 @@ export default function Sending(props) {
     }, 1000);
   };
 
+  const pay = () => {
+    fetch(`/pay/${invoice}`);
+  };
+
   return (
     <div className="mode-container">
       {fortune ? (
@@ -74,6 +78,7 @@ export default function Sending(props) {
           </p>
         </div>
       ) : null}
+      <button onClick={pay}>pay</button>
     </div>
   );
 }

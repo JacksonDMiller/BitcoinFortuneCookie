@@ -62,6 +62,10 @@ export default function Sending(props) {
     }
   };
 
+  const pay = () => {
+    fetch(`/pay/${invoice}`);
+  };
+
   return (
     <div>
       {!sent ? (
@@ -113,6 +117,7 @@ export default function Sending(props) {
               <p>
                 <a href={`lightning:${invoice}`}>Open your wallet</a>
               </p>
+              <button onClick={pay}>pay</button>
             </div>
           ) : null}
         </div>

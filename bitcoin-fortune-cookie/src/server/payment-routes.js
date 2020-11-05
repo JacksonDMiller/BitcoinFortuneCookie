@@ -29,14 +29,14 @@ fs.readFile(`./src/server/fortunes.txt`, "utf8", (err, data) => {
 
 //listen for payments and mark invoices as paid in the database
 sub.on("invoice_updated", async (invoice) => {
-  console.log('Inovice_update')
+  console.log("Inovice_update");
   if (invoice.is_confirmed === true) {
-    console.log('Inovice_Confirmed')
+    console.log("Inovice_Confirmed");
     const doc = await Cookies.findOne({
       invoice: invoice.request,
     });
     if (doc.recipient) {
-      console.log('database lookup complete')
+      console.log("database lookup complete");
       // Fortune cookie with a recipient has been paid for so send them a tweet.
       // put the the fortune text on the open cookie image
       const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
@@ -47,7 +47,7 @@ sub.on("invoice_updated", async (invoice) => {
         .blit(fontCanvas, 0, 0)
         .writeAsync(`${doc._id}.png`)
         .then(async () => {
-          console.log('image created')
+          console.log("image created");
           const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
           client.post("media/upload", { media: cookieImage }, function (
             error,
@@ -62,18 +62,18 @@ sub.on("invoice_updated", async (invoice) => {
                 media_ids: media.media_id_string,
               };
 
-              client.post("statuses/update", status, function (
-                error,
-                tweet,
-                response
-              ) {
-                if (error) {
-                  console.log(error);
-                } else {
-                  console.log("Successfully tweeted an image!");
-                  fs.unlinkSync(`./${doc._id}.png`);
-                }
-              });
+              // client.post("statuses/update", status, function (
+              //   error,
+              //   tweet,
+              //   response
+              // ) {
+              //   if (error) {
+              //     console.log(error);
+              //   } else {
+              console.log("Successfully tweeted an image! disabled");
+              //     fs.unlinkSync(`./${doc._id}.png`);
+              //   }
+              // });
             }
           });
         });
@@ -85,6 +85,16 @@ sub.on("invoice_updated", async (invoice) => {
 
 module.exports = function (app) {
   //request a cookie returns an invoice
+
+  app.get("/pay/:invoice", async (req, res) => {
+    const doc = await Cookies.findOne({
+      invoice: req.params.invoice,
+    });
+    console.log(doc);
+    doc.paid = true;
+    doc.save();
+    res.status(200).send();
+  });
 
   app.get("/request-cookie/", async (req, res) => {
     const invoice = await createInvoice({
