@@ -29,11 +29,15 @@ fs.readFile(`./src/server/fortunes.txt`, "utf8", (err, data) => {
 
 //listen for payments and mark invoices as paid in the database
 sub.on("invoice_updated", async (invoice) => {
+  console.log('Inovice_update')
   if (invoice.is_confirmed === true) {
+    console.log('Inovice_Confirmed')
     const doc = await Cookies.findOne({
       invoice: invoice.request,
     });
     if (doc.recipient) {
+      console.log('database lookup complete')
+      // Fortune cookie with a recipient has been paid for so send them a tweet.
       // put the the fortune text on the open cookie image
       const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
       const fontCanvas = await Jimp.create(2560, 1440);
@@ -43,9 +47,8 @@ sub.on("invoice_updated", async (invoice) => {
         .blit(fontCanvas, 0, 0)
         .writeAsync(`${doc._id}.png`)
         .then(async () => {
+          console.log('image created')
           const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
-
-          // there is a recepient so send them a tweet to tell them about the cookie
           client.post("media/upload", { media: cookieImage }, function (
             error,
             media,
