@@ -8,6 +8,7 @@ const cookieSchema = new Schema({
   paid: Boolean,
   recipient: String,
   sender: String,
+  custom: Boolean,
 });
 
 const Cookies = mongoose.model("Cookies", cookieSchema);

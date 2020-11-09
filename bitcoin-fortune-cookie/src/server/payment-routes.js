@@ -62,18 +62,18 @@ sub.on("invoice_updated", async (invoice) => {
                 media_ids: media.media_id_string,
               };
 
-              // client.post("statuses/update", status, function (
-              //   error,
-              //   tweet,
-              //   response
-              // ) {
-              //   if (error) {
-              //     console.log(error);
-              //   } else {
-              console.log("Successfully tweeted an image! disabled");
-              //     fs.unlinkSync(`./${doc._id}.png`);
-              //   }
-              // });
+              client.post("statuses/update", status, function (
+                error,
+                tweet,
+                response
+              ) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log("Successfully tweeted an image!");
+                  fs.unlinkSync(`./${doc._id}.png`);
+                }
+              });
             }
           });
         });
@@ -113,28 +113,37 @@ module.exports = function (app) {
     res.send({ cookie });
   });
 
-  app.get("/request-cookie-delivery/:recipient/:sender", async (req, res) => {
-    console.log(req.params.recipient);
+  app.post("/request-cookie-delivery/", async (req, res) => {
+    let isCookieCustom = false;
+    let price = 100;
+    console.log(req.body);
+    if (req.body.customFortune) {
+      price = 1000;
+      isCookieCustom = true;
+    }
     const invoice = await createInvoice({
       lnd,
-      tokens: 100,
+      tokens: price,
       description: "Buy a cookie",
     });
-    if (filter.isProfane(req.params.sender)) {
-      req.params.sender = "Someone";
-      console.log("changed");
+    // checking for swear words in the sender field. This library is very easy to trick and should probably be replaced
+    if (filter.isProfane(req.body.sender)) {
+      req.body.sender = "Someone";
     }
-
-    req.params.sender =
-      req.params.sender.charAt(0).toUpperCase() + req.params.sender.slice(1);
+    // making sure that the sender is captialized
+    req.body.sender =
+      req.body.sender.charAt(0).toUpperCase() + req.body.sender.slice(1);
 
     const cookie = new Cookies({
-      recipient: req.params.recipient,
+      recipient: req.body.recipient,
       date: new Date(),
-      fortune: fortunes[Math.floor(Math.random() * fortunes.length)],
+      fortune:
+        req.body.customFortune ||
+        fortunes[Math.floor(Math.random() * fortunes.length)],
       invoice: invoice.request,
       paid: false,
-      sender: req.params.sender,
+      sender: req.body.sender || "Someone",
+      custom: isCookieCustom,
     });
     cookie.save();
     res.send(cookie);

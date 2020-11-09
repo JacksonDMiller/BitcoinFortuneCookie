@@ -37,6 +37,9 @@ export default function Sending(props) {
         setInvoice("");
         setFortune(data.fortune);
         clearInterval(checkForPaymentInterval);
+        setTimeout(() => {
+          setShowForutne("block");
+        }, 400);
       }
     }, 1000);
   };
@@ -56,7 +59,7 @@ export default function Sending(props) {
             alt=""
           />
           <div className="fortune-box">
-            <p style={{ display: { showFortune } }} className="fortune">
+            <p style={{ display: showFortune }} className="fortune">
               {fortune}
             </p>
           </div>

@@ -1,11 +1,16 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+var bodyParser = require("body-parser");
 const path = require("path");
-const app = express();
-require("./payment-routes")(app);
 const mongoose = require("mongoose");
 const fs = require("fs");
 const keys = require("./config/keys");
+
+// setting up express
+var app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+require("./payment-routes")(app);
 
 const dbSetup = async () => {
   await mongoose.connect(keys.mongodb.uri, {

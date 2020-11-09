@@ -6,12 +6,12 @@ let checkForPaymentInterval = null;
 
 export default function Sending(props) {
   const { setMode } = props;
-
   const [readyToSend, setReadyToSend] = useState(false);
   const [sent, setSent] = useState(false);
   const [recipient, setRecipeint] = useState("");
   const [sender, setSender] = useState("");
   const [invoice, setInvoice] = useState("");
+  const [customFortune, setCustomFortune] = useState("");
 
   const checkForPayment = (id) => {
     var counter = 0;
@@ -32,21 +32,29 @@ export default function Sending(props) {
   };
 
   const requestCookieDelivery = async (e) => {
-    if (sender) {
-      setSender("Someone");
-    }
     e.preventDefault();
     if (!validTwitteUser(recipient)) {
       alert(`that's not a twitter handle`);
       return;
     }
     setReadyToSend(true);
-    const res = await fetch(`/request-cookie-delivery/${recipient}/${sender}`);
-    let data = await res.json();
-    setInvoice(data.invoice);
-    setTimeout(() => {
-      checkForPayment(data._id);
-    }, 1000);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        recipient: recipient,
+        sender: sender,
+        customFortune: customFortune,
+      }),
+    };
+    fetch("/request-cookie-delivery", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        setInvoice(data.invoice);
+        setTimeout(() => {
+          checkForPayment(data._id);
+        }, 1000);
+      });
   };
 
   const validTwitteUser = (sn) => {
@@ -59,6 +67,9 @@ export default function Sending(props) {
     }
     if (e.target.name === "sender") {
       setSender(e.target.value);
+    }
+    if (e.target.name === "custom-fortune") {
+      setCustomFortune(e.target.value);
     }
   };
 
@@ -86,6 +97,7 @@ export default function Sending(props) {
             value={recipient}
             onChange={handleChange}
             type="text"
+            maxlength="20"
           />
           <p>Who is it from?</p>
           <input
@@ -93,6 +105,16 @@ export default function Sending(props) {
             name="sender"
             value={sender}
             onChange={handleChange}
+            type="text"
+            maxlength="20"
+          />
+          <p>Do you want to send a custom fortune? (+1000 sats)</p>
+          <input
+            className="sending-text-input"
+            name="custom-fortune"
+            value={customFortune}
+            onChange={handleChange}
+            maxlength="80"
             type="text"
           />
           <div>
