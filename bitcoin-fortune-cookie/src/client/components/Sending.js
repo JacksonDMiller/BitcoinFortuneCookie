@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import closedCookie from "../../assets/closed-cookie.png";
 import sendingCookie from "../../assets/send-cookie-animation.gif";
 var QRCode = require("qrcode.react");
 let checkForPaymentInterval = null;
 
 export default function Sending(props) {
-  const { setMode } = props;
   const [readyToSend, setReadyToSend] = useState(false);
   const [sent, setSent] = useState(false);
   const [recipient, setRecipeint] = useState("");
   const [sender, setSender] = useState("");
   const [invoice, setInvoice] = useState("");
   const [customFortune, setCustomFortune] = useState("");
+  const [displayCustomMessageInput, setDisplayCustomMessageInput] = useState(
+    false
+  );
 
+  useEffect(() => {
+    return () => {
+      // Stoping the browser from checking for payments
+      clearInterval(checkForPaymentInterval);
+    };
+  }, []);
   const checkForPayment = (id) => {
     var counter = 0;
     checkForPaymentInterval = setInterval(async () => {
@@ -23,7 +31,6 @@ export default function Sending(props) {
       }
       const res = await fetch("/check-for-payment/" + id);
       if (res.status !== 402) {
-        let data = await res.json();
         setInvoice("");
         setSent(true);
         clearInterval(checkForPaymentInterval);
@@ -71,6 +78,10 @@ export default function Sending(props) {
     if (e.target.name === "custom-fortune") {
       setCustomFortune(e.target.value);
     }
+    if (e.target.name === "custom") {
+      console.log(e.target.checked);
+      setDisplayCustomMessageInput(e.target.checked);
+    }
   };
 
   const pay = () => {
@@ -79,6 +90,9 @@ export default function Sending(props) {
 
   return (
     <div>
+      {/* preloading the cookie animation so it's ready to play when the user pays. the random number is so that it dosent get cached */}
+      <img src={sendingCookie} alt="" style={{ display: "none" }} />
+
       {!sent ? (
         <img className="cookie-image" src={closedCookie} alt="" />
       ) : (
@@ -92,31 +106,47 @@ export default function Sending(props) {
         <form action="">
           <p>Who do you want to send it to?</p>
           <input
+            placeholder="Twitter Handle"
             className="sending-text-input"
             name="recipient"
             value={recipient}
             onChange={handleChange}
             type="text"
-            maxlength="20"
+            maxLength="20"
           />
           <p>Who is it from?</p>
           <input
+            placeholder="Feel free to leave this blank"
             className="sending-text-input"
             name="sender"
             value={sender}
             onChange={handleChange}
             type="text"
-            maxlength="20"
+            maxLength="20"
           />
-          <p>Do you want to send a custom fortune? (+1000 sats)</p>
-          <input
-            className="sending-text-input"
-            name="custom-fortune"
-            value={customFortune}
-            onChange={handleChange}
-            maxlength="80"
-            type="text"
-          />
+          <div>
+            <input
+              type="checkbox"
+              name="custom"
+              checked={displayCustomMessageInput}
+              onChange={handleChange}
+            />
+            <label htmlFor="custom">
+              Write a custom message for +1000 sats
+            </label>
+          </div>
+          {displayCustomMessageInput ? (
+            <input
+              placeholder="Write your kind and polite message"
+              className="sending-text-input custom-fortune-input"
+              name="custom-fortune"
+              value={customFortune}
+              onChange={handleChange}
+              maxLength="80"
+              type="textbox"
+            />
+          ) : null}
+
           <div>
             <button
               className="button submit-button"

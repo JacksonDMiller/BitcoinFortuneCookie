@@ -42,5 +42,5 @@ const options = {
 };
 https.createServer(options, app).listen(443);
 
-app.listen(process.env.PORT || 8080);
+app.listen(80);
 console.log("Yip Yip! Listening on port 8080");

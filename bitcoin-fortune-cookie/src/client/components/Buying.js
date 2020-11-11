@@ -9,10 +9,6 @@ export default function Sending(props) {
   const [fortune, setFortune] = useState("");
   const [showFortune, setShowForutne] = useState("none");
 
-  useEffect(() => {
-    requestCookie();
-  }, []);
-
   const requestCookie = async () => {
     setMode("buying");
     const res = await fetch(`/request-cookie/`);
@@ -22,6 +18,14 @@ export default function Sending(props) {
       checkForPayment(data.cookie._id);
     }, 1000);
   };
+
+  useEffect(() => {
+    requestCookie();
+    return () => {
+      // Stoping the browser from checking for payments
+      clearInterval(checkForPaymentInterval);
+    };
+  }, []);
 
   const checkForPayment = (id) => {
     var counter = 0;
@@ -50,6 +54,8 @@ export default function Sending(props) {
 
   return (
     <div className="mode-container">
+      {/* preloading the cookie animation so it's ready to play when the user pays. the random number is so that it dosent get cached */}
+      <img src={openingCookie} alt="" style={{ display: "none" }} />
       {fortune ? (
         <div className="cookie-fortune-container">
           <img
