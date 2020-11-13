@@ -86,6 +86,7 @@ sub.on("invoice_updated", async (invoice) => {
     }
   } catch (err) {
     console.log(err + "catch me");
+    res.send({ message: err });
   }
 });
 
