@@ -29,60 +29,63 @@ fs.readFile(`./src/server/fortunes.txt`, "utf8", (err, data) => {
 
 //listen for payments and mark invoices as paid in the database
 sub.on("invoice_updated", async (invoice) => {
-  console.log("Inovice_update");
-  if (invoice.is_confirmed === true) {
-    console.log("Inovice_Confirmed");
-    const doc = await Cookies.findOne({
-      invoice: invoice.request,
-    });
-    if (doc.recipient) {
-      console.log("database lookup complete");
-      // Fortune cookie with a recipient has been paid for so send them a tweet.
-      // put the the fortune text on the open cookie image
-      const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
-      const fontCanvas = await Jimp.create(2560, 1440);
-      const destImage = await Jimp.read("./src/assets/open-cookie.png");
-      fontCanvas.print(font, 240, 340, doc.fortune, 950).rotate(-19);
-      destImage
-        .blit(fontCanvas, 0, 0)
-        .writeAsync(`${doc._id}.png`)
-        .then(async (err) => {
-          if (err) {
-            console.log(err);
-          }
-          console.log("image created");
-          const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
-          client.post("media/upload", { media: cookieImage }, function (
-            error,
-            media,
-            response
-          ) {
-            if (error) {
-              console.log(error);
-            } else {
-              const status = {
-                status: `Hey ${doc.recipient}, \n${doc.sender} sent you a fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`,
-                media_ids: media.media_id_string,
-              };
-
-              client.post("statuses/update", status, function (
-                error,
-                tweet,
-                response
-              ) {
-                if (error) {
-                  console.log(error);
-                } else {
-                  console.log("Successfully tweeted an image!");
-                  fs.unlinkSync(`./${doc._id}.png`);
-                }
-              });
-            }
-          });
+  try {
+    console.log("Inovice_update");
+    if (invoice.is_confirmed === true) {
+      console.log("Inovice_Confirmed");
+      const doc = await Cookies.findOne({
+        invoice: invoice.request,
+      });
+      if (doc.recipient) {
+        console.log("database lookup complete");
+        // Fortune cookie with a recipient has been paid for so send them a tweet.
+        // put the the fortune text on the open cookie image
+        const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
+        const fontCanvas = await Jimp.create(2560, 1440).catch((err) => {
+          console.error(err);
         });
+        const destImage = await Jimp.read("./src/assets/open-cookie.png");
+        fontCanvas.print(font, 240, 340, doc.fortune, 950).rotate(-19);
+        destImage
+          .blit(fontCanvas, 0, 0)
+          .writeAsync(`${doc._id}.png`)
+          .then(async () => {
+            console.log("image created");
+            const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
+            client.post("media/upload", { media: cookieImage }, function (
+              error,
+              media,
+              response
+            ) {
+              if (error) {
+                console.log(error);
+              } else {
+                const status = {
+                  status: `Hey ${doc.recipient}, \n${doc.sender} sent you a fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`,
+                  media_ids: media.media_id_string,
+                };
+
+                client.post("statuses/update", status, function (
+                  error,
+                  tweet,
+                  response
+                ) {
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    console.log("Successfully tweeted an image!");
+                    fs.unlinkSync(`./${doc._id}.png`);
+                  }
+                });
+              }
+            });
+          });
+      }
+      doc.paid = true;
+      doc.save();
     }
-    doc.paid = true;
-    doc.save();
+  } catch (err) {
+    console.log(err + "catch me");
   }
 });
 
