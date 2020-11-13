@@ -8,6 +8,8 @@ export default function Sending(props) {
   const [invoice, setInvoice] = useState("");
   const [fortune, setFortune] = useState("");
   const [showFortune, setShowForutne] = useState("none");
+  // altering the source of the animated image so that it will play the animation again.
+  const [src, setSrc] = useState("/opening-cookie.gif?a=" + Math.random());
 
   const requestCookie = async () => {
     setMode("buying");
@@ -48,20 +50,21 @@ export default function Sending(props) {
     }, 1000);
   };
 
+  // quick pay for testing
   const pay = () => {
     fetch(`/pay/${invoice}`);
   };
 
   return (
     <div className="mode-container">
-      {/* preloading the cookie animation so it's ready to play when the user pays. the random number is so that it dosent get cached */}
-      <img src={openingCookie} alt="" style={{ display: "none" }} />
+      {/* preloading the cookie animation so it's ready to play when the user pays.*/}
+      <img src={src} alt="" style={{ display: "none" }} />
       {fortune ? (
         <div className="cookie-fortune-container">
           <img
             // onLoad={() => setShowForutne("block")}
             className="cookie-image"
-            src={openingCookie}
+            src={src}
             alt=""
           />
           <div className="fortune-box">

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import closedCookie from "../../assets/closed-cookie.png";
-import sendingCookie from "../../assets/send-cookie-animation.gif";
 var QRCode = require("qrcode.react");
 let checkForPaymentInterval = null;
 
@@ -14,6 +13,7 @@ export default function Sending(props) {
   const [displayCustomMessageInput, setDisplayCustomMessageInput] = useState(
     false
   );
+  const [src, setSrc] = useState("/sending-cookie.gif?a=" + Math.random());
 
   useEffect(() => {
     return () => {
@@ -90,14 +90,14 @@ export default function Sending(props) {
 
   return (
     <div>
-      {/* preloading the cookie animation so it's ready to play when the user pays. the random number is so that it dosent get cached */}
-      <img src={sendingCookie} alt="" style={{ display: "none" }} />
+      {/* preloading the cookie animation so it's ready to play when the user pays.*/}
+      <img src={src} alt="" style={{ display: "none" }} />
 
       {!sent ? (
         <img className="cookie-image" src={closedCookie} alt="" />
       ) : (
         <div>
-          <img className="cookie-image" src={sendingCookie} alt="" />
+          <img className="cookie-image" src={src} alt="" />
           <p>A cookie was sent to {recipient}</p>
         </div>
       )}

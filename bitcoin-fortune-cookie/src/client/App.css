@@ -17,9 +17,9 @@ code {
 }
 
 .logo {
+  padding-top: 10%;
   max-width: 60%;
-  margin-top: -25px;
-  margin-bottom: -50px;
+  margin: 10px;
 }
 
 .cookie-fortune-container {
