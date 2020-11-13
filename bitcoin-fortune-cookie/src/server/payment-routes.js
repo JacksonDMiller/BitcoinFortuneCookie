@@ -44,7 +44,7 @@ sub.on("invoice_updated", async (invoice) => {
         const fontCanvas = await Jimp.create(1200, 675).catch((err) => {
           console.error(err);
         });
-        const destImage = await Jimp.read("./src/assets/open-cookie.png");
+        const destImage = await Jimp.read("./src/assets/opened-cookie.png");
         fontCanvas.print(font, 120, 155, doc.fortune, 420).rotate(-19);
         destImage
           .blit(fontCanvas, 0, 0)
