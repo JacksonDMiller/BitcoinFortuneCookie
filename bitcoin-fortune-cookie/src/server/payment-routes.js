@@ -46,7 +46,10 @@ sub.on("invoice_updated", async (invoice) => {
       destImage
         .blit(fontCanvas, 0, 0)
         .writeAsync(`${doc._id}.png`)
-        .then(async () => {
+        .then(async (err) => {
+          if (err) {
+            console.log(err);
+          }
           console.log("image created");
           const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
           client.post("media/upload", { media: cookieImage }, function (
