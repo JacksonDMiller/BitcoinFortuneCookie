@@ -40,12 +40,12 @@ sub.on("invoice_updated", async (invoice) => {
         console.log("database lookup complete");
         // Fortune cookie with a recipient has been paid for so send them a tweet.
         // put the the fortune text on the open cookie image
-        const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
-        const fontCanvas = await Jimp.create(2560, 1440).catch((err) => {
+        const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
+        const fontCanvas = await Jimp.create(1200, 675).catch((err) => {
           console.error(err);
         });
         const destImage = await Jimp.read("./src/assets/open-cookie.png");
-        fontCanvas.print(font, 240, 340, doc.fortune, 950).rotate(-19);
+        fontCanvas.print(font, 120, 155, doc.fortune, 420).rotate(-19);
         destImage
           .blit(fontCanvas, 0, 0)
           .writeAsync(`${doc._id}.png`)
@@ -64,7 +64,6 @@ sub.on("invoice_updated", async (invoice) => {
                   status: `Hey ${doc.recipient}, \n${doc.sender} sent you a fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`,
                   media_ids: media.media_id_string,
                 };
-
                 client.post("statuses/update", status, function (
                   error,
                   tweet,
@@ -172,19 +171,18 @@ module.exports = function (app) {
 
   const test = async () => {
     doc = {
-      fortune: "1 Satoshi = 1 Satoshi",
+      fortune: "1 Satoshi = 1 Satoshi 1 Satoshi = 1 Satoshi 1 Satoshi",
       _id: 1654655555,
     };
-    const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
-    const fontCanvas = await Jimp.create(2560, 1440);
+    const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
+    const fontCanvas = await Jimp.create(1200, 675);
     const destImage = await Jimp.read("./src/assets/opened-cookie.png");
-    fontCanvas.print(font, 240, 340, doc.fortune, 950).rotate(-19);
+    fontCanvas.print(font, 120, 155, doc.fortune, 420).rotate(-19);
     destImage
       .blit(fontCanvas, 0, 0)
       .writeAsync(`${doc._id}.png`)
       .then(async () => {
         setTimeout(async () => {
-          const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
         }, 5000);
       });
   };
