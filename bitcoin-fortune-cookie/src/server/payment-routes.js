@@ -177,7 +177,7 @@ module.exports = function (app) {
     };
     const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
     const fontCanvas = await Jimp.create(2560, 1440);
-    const destImage = await Jimp.read("./src/assets/open-cookie.png");
+    const destImage = await Jimp.read("./src/assets/opened-cookie.png");
     fontCanvas.print(font, 240, 340, doc.fortune, 950).rotate(-19);
     destImage
       .blit(fontCanvas, 0, 0)
