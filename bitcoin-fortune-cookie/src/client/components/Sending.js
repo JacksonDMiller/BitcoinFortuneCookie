@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import closedCookie from "../../assets/closed-cookie.png";
+import Loader from "react-loader-spinner";
 var QRCode = require("qrcode.react");
 let checkForPaymentInterval = null;
 
@@ -136,8 +137,8 @@ export default function Sending(props) {
             </label>
           </div>
           {displayCustomMessageInput ? (
-            <input
-              placeholder="Write your kind and polite message"
+            <textarea
+              placeholder="a kind and polite fortune"
               className="sending-text-input custom-fortune-input"
               name="custom-fortune"
               value={customFortune}
@@ -163,15 +164,24 @@ export default function Sending(props) {
               <p>Please pay this invoice to send a cookie to {recipient}</p>
               <QRCode
                 value={invoice}
-                size={300}
-                style={{ background: "white", padding: "20px" }}
+                size={200}
+                style={{ background: "white", padding: "10px" }}
               />
               <p>
                 <a href={`lightning:${invoice}`}>Open your wallet</a>
               </p>
-              <button onClick={pay}>pay</button>
+              <button style={{ position: "absolute", left: 0 }} onClick={pay}>
+                pay
+              </button>
             </div>
-          ) : null}
+          ) : (
+            <span>
+              {" "}
+              {!sent ? (
+                <Loader type="Rings" color="#00BFFF" height={200} width={200} />
+              ) : null}
+            </span>
+          )}
         </div>
       )}
     </div>

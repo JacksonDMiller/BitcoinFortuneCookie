@@ -5,11 +5,16 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const keys = require("./config/keys");
 const https = require("https");
-
+var http = express();
 // setting up express
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//redirecting requests that come in on http
+http.get("*", function (req, res) {
+  res.redirect("https://" + req.headers.host + req.url);
+});
 
 require("./payment-routes")(app);
 
@@ -42,5 +47,5 @@ const options = {
 };
 https.createServer(options, app).listen(443);
 
-app.listen(80);
+http.listen(80);
 console.log("Yip Yip! Listening on port 8080");
