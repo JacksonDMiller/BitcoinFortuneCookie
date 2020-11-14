@@ -12,8 +12,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //redirecting requests that come in on http
-http.get("*", function (req, res) {
-  res.redirect("https://" + req.headers.host + req.url);
+app.use(function (req, res, next) {
+  if (req.secure) {
+    // request was via https, so do no special handling
+    next();
+  } else {
+    // request was via http, so redirect to https
+    res.redirect("https://" + req.headers.host + req.url);
+    console.log("hello");
+  }
 });
 
 require("./payment-routes")(app);
@@ -47,5 +54,5 @@ const options = {
 };
 https.createServer(options, app).listen(443);
 
-http.listen(80);
+app.listen(80);
 console.log("Yip Yip! Listening on port 8080");

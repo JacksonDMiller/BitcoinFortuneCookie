@@ -91,7 +91,11 @@ export default function Sending(props) {
           </p>
         </div>
       ) : (
-        <Loader type="Rings" color="#00BFFF" height={200} width={200} />
+        <span>
+          {!fortune ? (
+            <Loader type="Rings" color="#00BFFF" height={200} width={200} />
+          ) : null}
+        </span>
       )}
       <button style={{ position: "absolute", left: 0 }} onClick={pay}>
         pay

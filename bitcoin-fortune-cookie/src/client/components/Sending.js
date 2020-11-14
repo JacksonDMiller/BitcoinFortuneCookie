@@ -176,7 +176,6 @@ export default function Sending(props) {
             </div>
           ) : (
             <span>
-              {" "}
               {!sent ? (
                 <Loader type="Rings" color="#00BFFF" height={200} width={200} />
               ) : null}
