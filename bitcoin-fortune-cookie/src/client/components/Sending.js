@@ -70,6 +70,7 @@ export default function Sending(props) {
   };
 
   const handleChange = (e) => {
+    console.log(e.target.name);
     if (e.target.name === "recipient") {
       setRecipeint(e.target.value);
     }
@@ -104,10 +105,12 @@ export default function Sending(props) {
       )}
 
       {!readyToSend ? (
-        <form action="">
-          <p>Who do you want to send it to?</p>
+        <form className="form-container" action="">
+          <p className="sending-text">
+            Send this <br /> cookie to:
+          </p>
           <input
-            placeholder="Twitter Handle"
+            placeholder="@Twitter_Handle"
             className="sending-text-input"
             name="recipient"
             value={recipient}
@@ -115,7 +118,9 @@ export default function Sending(props) {
             type="text"
             maxLength="20"
           />
-          <p>Who is it from?</p>
+          <p className="sending-text">
+            This cookie <br /> was sent by:
+          </p>
           <input
             placeholder="Feel free to leave this blank"
             className="sending-text-input"
@@ -125,21 +130,20 @@ export default function Sending(props) {
             type="text"
             maxLength="20"
           />
-          <div>
+          <label class="custom-cookie-checkbox-container" htmlFor="check">
+            Write a custom fortune:
             <input
+              id="check"
               type="checkbox"
               name="custom"
               checked={displayCustomMessageInput}
               onChange={handleChange}
             />
-            <label htmlFor="custom">
-              Write a custom message for +1000 sats
-            </label>
-          </div>
+          </label>
           {displayCustomMessageInput ? (
             <textarea
               placeholder="a kind and polite fortune"
-              className="sending-text-input custom-fortune-input"
+              className="custom-fortune-input"
               name="custom-fortune"
               value={customFortune}
               onChange={handleChange}
@@ -148,20 +152,20 @@ export default function Sending(props) {
             />
           ) : null}
 
-          <div>
-            <button
-              className="button submit-button"
-              onClick={requestCookieDelivery}
-            >
-              Submit
-            </button>
-          </div>
+          <button
+            className="button submit-button send-submit-button"
+            onClick={requestCookieDelivery}
+          >
+            Submit
+          </button>
         </form>
       ) : (
         <div>
           {invoice ? (
             <div>
-              <p>Please pay this invoice to send a cookie to {recipient}</p>
+              <p>
+                Pay this invoice to send <br /> this cookie to {recipient}
+              </p>
               <QRCode
                 value={invoice}
                 size={200}

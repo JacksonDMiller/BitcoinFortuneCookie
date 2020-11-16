@@ -3,7 +3,7 @@ import React from "react";
 export default function waiting(props) {
   const { setMode } = props;
   return (
-    <div>
+    <div className="waiting-page-button-container">
       <button className="button" onClick={() => setMode("buying")}>
         Buy a cookie
       </button>

@@ -30,7 +30,7 @@ code {
 }
 
 .cookie-image {
-  width: 550px;
+  width: 100%;
 }
 
 .fortune-box {
@@ -79,10 +79,16 @@ code {
 }
 
 .container {
-  max-width: 900px;
+  width: 100%;
   margin: auto;
   text-align: center;
+  max-width: 900px;
 }
+/* @media only screen and (max-width: 600px) {
+  .container {
+    width: 300px;
+  }
+} */
 
 .button {
   background: #fff;
@@ -99,7 +105,7 @@ code {
 
 @media only screen and (max-width: 600px) {
   .button {
-    width: 80%;
+    width: 100%;
   }
 }
 
@@ -107,17 +113,54 @@ a,
 p,
 b,
 label {
-  color: #f90;
+  color: white;
 }
 
 .sending-text-input {
-  border-radius: 7px;
-  height: 30px;
-  width: 200px;
+  border-radius: 15px;
+  height: 42px;
+  max-width: 200px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+.sending-text {
+  justify-self: end;
+  margin: 0;
 }
 
 .custom-fortune-input {
   height: 60px;
+  width: 250px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  justify-self: center;
+  text-align: center;
+  border-radius: 15px;
+  resize: none;
 }
 
-/*# sourceMappingURL=main.8e1e9042.chunk.css.map */
+.form-container {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  margin: 20px;
+}
+
+.send-submit-button {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  justify-self: center;
+}
+
+.custom-cookie-checkbox-container {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  justify-self: end;
+}
+
+.waiting-page-button-container {
+  margin: 20px;
+}
+
+canvas {
+  border-radius: 15px;
+}

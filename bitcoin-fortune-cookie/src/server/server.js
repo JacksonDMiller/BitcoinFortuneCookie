@@ -11,7 +11,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//redirecting requests that come in on http
+// redirecting requests that come in on http
 app.use(function (req, res, next) {
   if (req.secure) {
     // request was via https, so do no special handling
@@ -19,7 +19,6 @@ app.use(function (req, res, next) {
   } else {
     // request was via http, so redirect to https
     res.redirect("https://" + req.headers.host + req.url);
-    console.log("hello");
   }
 });
 

@@ -45,7 +45,19 @@ sub.on("invoice_updated", async (invoice) => {
           console.error(err);
         });
         const destImage = await Jimp.read("./src/assets/opened-cookie.png");
-        fontCanvas.print(font, 120, 155, doc.fortune, 420).rotate(-19);
+        fontCanvas
+          .print(
+            font,
+            120,
+            155,
+            {
+              text: doc.fortune,
+              alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+              alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
+            },
+            420
+          )
+          .rotate(-19);
         destImage
           .blit(fontCanvas, 0, 0)
           .writeAsync(`${doc._id}.png`)
@@ -174,16 +186,27 @@ module.exports = function (app) {
       fortune: "1 Satoshi = 1 Satoshi 1 Satoshi = 1 Satoshi 1 Satoshi",
       _id: 1654655555,
     };
-    const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
+    const font = await Jimp.loadFont("http://192.168.0.33:3000/roboto.fnt");
     const fontCanvas = await Jimp.create(1200, 675);
     const destImage = await Jimp.read("./src/assets/opened-cookie.png");
-    fontCanvas.print(font, 120, 155, doc.fortune, 420).rotate(-19);
+    fontCanvas
+      .print(
+        font,
+        120,
+        155,
+        {
+          text: doc.fortune,
+          alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+          alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
+        },
+        420
+      )
+      .rotate(-19);
     destImage
       .blit(fontCanvas, 0, 0)
       .writeAsync(`${doc._id}.png`)
       .then(async () => {
-        setTimeout(async () => {
-        }, 5000);
+        setTimeout(async () => {}, 5000);
       });
   };
   // test();
