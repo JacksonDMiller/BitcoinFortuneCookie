@@ -9,8 +9,6 @@ body {
   min-height: 100vh;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap");
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -82,7 +80,7 @@ code {
   width: 100%;
   margin: auto;
   text-align: center;
-  max-width: 900px;
+  max-width: 600px;
 }
 /* @media only screen and (max-width: 600px) {
   .container {
@@ -119,30 +117,35 @@ label {
 .sending-text-input {
   border-radius: 15px;
   height: 42px;
-  max-width: 200px;
+  max-width: 210px;
   margin-bottom: 15px;
   margin-left: 15px;
+  margin-right: 15px;
+  width: 100%;
 }
 .sending-text {
-  justify-self: end;
+  justify-self: center;
   margin: 0;
 }
 
 .custom-fortune-input {
   height: 60px;
-  width: 250px;
-  grid-column-start: 1;
-  grid-column-end: 3;
-  justify-self: center;
+  width: 300px;
   text-align: center;
   border-radius: 15px;
   resize: none;
+  margin: 15px;
+  margin-bottom: 0;
 }
 
 .form-container {
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 25% 60%;
   margin: 20px;
+  max-width: 370px;
+  margin: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .send-submit-button {
@@ -155,6 +158,8 @@ label {
   grid-column-start: 1;
   grid-column-end: 3;
   justify-self: end;
+  margin-right: 15px;
+  margin-bottom: 15px;
 }
 
 .waiting-page-button-container {
@@ -163,4 +168,18 @@ label {
 
 canvas {
   border-radius: 15px;
+}
+
+.custom-fortune-input-container {
+  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.custom-fortune-input-container > p:nth-child(2) {
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 0;
+  text-align: right;
+  margin-right: 30px;
 }

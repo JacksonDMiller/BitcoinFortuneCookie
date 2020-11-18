@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import openingCookie from "../../assets/opening-cookie.gif";
 import closedCookie from "../../assets/closed-cookie.png";
 import Loader from "react-loader-spinner";
 var QRCode = require("qrcode.react");
@@ -68,6 +67,7 @@ export default function Sending(props) {
             src={src}
             alt=""
           />
+          <audio src="/crack.mp3" autoPlay></audio>
           <div className="fortune-box">
             <p style={{ display: showFortune }} className="fortune">
               {fortune}

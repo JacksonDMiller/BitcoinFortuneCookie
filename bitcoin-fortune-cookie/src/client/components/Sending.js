@@ -100,6 +100,7 @@ export default function Sending(props) {
       ) : (
         <div>
           <img className="cookie-image" src={src} alt="" />
+          <audio src="/sending.mp3" autoPlay></audio>
           <p>A cookie was sent to {recipient}</p>
         </div>
       )}
@@ -141,15 +142,18 @@ export default function Sending(props) {
             />
           </label>
           {displayCustomMessageInput ? (
-            <textarea
-              placeholder="a kind and polite fortune"
-              className="custom-fortune-input"
-              name="custom-fortune"
-              value={customFortune}
-              onChange={handleChange}
-              maxLength="80"
-              type="textbox"
-            />
+            <span className='custom-fortune-input-container'>
+              <textarea
+                placeholder="a kind and polite fortune"
+                className="custom-fortune-input"
+                name="custom-fortune"
+                value={customFortune}
+                onChange={handleChange}
+                maxLength="100"
+                type="textbox"
+              />
+              <p>{customFortune.length}/100</p>
+            </span>
           ) : null}
 
           <button
