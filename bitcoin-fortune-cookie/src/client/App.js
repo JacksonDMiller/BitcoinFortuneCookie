@@ -22,6 +22,24 @@ function App() {
       {mode === "waiting" ? <Waiting setMode={setMode} /> : null}
       {mode === "buying" ? <Buying setMode={setMode} /> : null}
       {mode === "sending" ? <Sending setMode={setMode} /> : null}
+      {mode === "termsofservice" ? (
+        <div>
+          <p>It's simple don't be a jerk</p>
+        </div>
+      ) : null}
+      <div className="footer">
+        <a
+          className="twitter-icon-link"
+          href="https://twitter.com/intent/user?screen_name=Bitcoin_Cookie"
+        >
+          <img className="twitter-icon" src="/twitter-icon.png" alt="" />
+        </a>
+        <a href="https://twitter.com/Bitcoin_Cookie">Contact</a>
+        <a href="https://twitter.com/Bitcoin_Cookie">Report a Bug</a>
+        <a href="#" onClick={() => setMode("termsofservice")}>
+          Terms of Service
+        </a>
+      </div>
     </div>
   );
 }

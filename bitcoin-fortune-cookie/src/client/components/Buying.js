@@ -24,7 +24,7 @@ export default function Sending(props) {
   useEffect(() => {
     requestCookie();
     return () => {
-      // Stoping the browser from checking for payments
+      // Stoping the browser from checking for payments after leaving the page.
       clearInterval(checkForPaymentInterval);
     };
   }, []);
@@ -61,12 +61,7 @@ export default function Sending(props) {
       <img src={src} alt="" style={{ display: "none" }} />
       {fortune ? (
         <div className="cookie-fortune-container">
-          <img
-            // onLoad={() => setShowForutne("block")}
-            className="cookie-image"
-            src={src}
-            alt=""
-          />
+          <img className="cookie-image" src={src} alt="" />
           <audio src="/crack.mp3" autoPlay></audio>
           <div className="fortune-box">
             <p style={{ display: showFortune }} className="fortune">

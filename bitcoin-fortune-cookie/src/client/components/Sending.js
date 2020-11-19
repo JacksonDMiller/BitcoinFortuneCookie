@@ -142,7 +142,7 @@ export default function Sending(props) {
             />
           </label>
           {displayCustomMessageInput ? (
-            <span className='custom-fortune-input-container'>
+            <span className="custom-fortune-input-container">
               <textarea
                 placeholder="a kind and polite fortune"
                 className="custom-fortune-input"
