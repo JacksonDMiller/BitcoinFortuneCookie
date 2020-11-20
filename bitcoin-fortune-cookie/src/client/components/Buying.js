@@ -77,6 +77,7 @@ export default function Sending(props) {
         <div>
           <p>Please pay this invoice to open the cookie</p>
           <QRCode
+            className="qr-code"
             value={invoice}
             size={200}
             style={{ background: "white", padding: "10px" }}
@@ -92,7 +93,7 @@ export default function Sending(props) {
           ) : null}
         </span>
       )}
-      <button style={{ position: "absolute", left: 0 }} onClick={pay}>
+      <button style={{ position: "absolute", top: 0, left: 0 }} onClick={pay}>
         pay
       </button>
     </div>

@@ -27,6 +27,7 @@ function App() {
           <p>It's simple don't be a jerk</p>
         </div>
       ) : null}
+
       <div className="footer">
         <a
           className="twitter-icon-link"

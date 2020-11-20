@@ -171,6 +171,7 @@ export default function Sending(props) {
                 Pay this invoice to send <br /> this cookie to {recipient}
               </p>
               <QRCode
+                className="qr-code"
                 value={invoice}
                 size={200}
                 style={{ background: "white", padding: "10px" }}
@@ -178,7 +179,10 @@ export default function Sending(props) {
               <p>
                 <a href={`lightning:${invoice}`}>Open your wallet</a>
               </p>
-              <button style={{ position: "absolute", left: 0 }} onClick={pay}>
+              <button
+                style={{ position: "absolute", top: 0, left: 0 }}
+                onClick={pay}
+              >
                 pay
               </button>
             </div>
