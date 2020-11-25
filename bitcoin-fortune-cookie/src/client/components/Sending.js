@@ -149,10 +149,10 @@ export default function Sending(props) {
                 name="custom-fortune"
                 value={customFortune}
                 onChange={handleChange}
-                maxLength="100"
+                maxLength="75"
                 type="textbox"
               />
-              <p>{customFortune.length}/100</p>
+              <p>{customFortune.length}/75</p>
             </span>
           ) : null}
 

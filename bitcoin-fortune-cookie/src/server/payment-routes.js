@@ -25,7 +25,14 @@ var client = new Twitter({
 fs.readFile(`./src/server/fortunes.txt`, "utf8", (err, data) => {
   if (err) throw err;
   fortunes = data.split("\n");
+
+  //remove any fortunes that are too long.
+  fortunes = fortunes.filter((fortune) => {
+    return fortune.length < 75;
+  });
 });
+
+console.log(Cookies.count());
 
 //listen for payments and mark invoices as paid in the database
 sub.on("invoice_updated", async (invoice) => {
@@ -64,32 +71,32 @@ sub.on("invoice_updated", async (invoice) => {
           .then(async () => {
             console.log("image created");
             const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
-            client.post("media/upload", { media: cookieImage }, function (
-              error,
-              media,
-              response
-            ) {
-              if (error) {
-                console.log(error);
-              } else {
-                const status = {
-                  status: `Hey ${doc.recipient}, \n${doc.sender} sent you a fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`,
-                  media_ids: media.media_id_string,
-                };
-                client.post("statuses/update", status, function (
-                  error,
-                  tweet,
-                  response
-                ) {
-                  if (error) {
-                    console.log(error);
-                  } else {
-                    console.log("Successfully tweeted an image!");
-                    fs.unlinkSync(`./${doc._id}.png`);
-                  }
-                });
+            client.post(
+              "media/upload",
+              { media: cookieImage },
+              function (error, media, response) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  const status = {
+                    status: `Hey ${doc.recipient}, \n${doc.sender} sent you a fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`,
+                    media_ids: media.media_id_string,
+                  };
+                  client.post(
+                    "statuses/update",
+                    status,
+                    function (error, tweet, response) {
+                      if (error) {
+                        console.log(error);
+                      } else {
+                        console.log("Successfully tweeted an image!");
+                        fs.unlinkSync(`./${doc._id}.png`);
+                      }
+                    }
+                  );
+                }
               }
-            });
+            );
           });
       }
       doc.paid = true;

@@ -13,7 +13,7 @@ label {
   margin-left: auto;
   margin-right: auto;
   margin-top: 5%;
-  margin-bottom: 15px;
+  margin-bottom: 5%;
 }
 
 .container {
@@ -58,10 +58,10 @@ label {
 .fortune-box {
   display: flex;
   position: absolute;
-  bottom: 165px;
+  bottom: 155px;
   left: 105px;
   width: 220px;
-  transform: rotate(21deg);
+  transform: rotate(19deg);
   height: 65px;
   align-items: center;
   /* background: #f90; */
@@ -86,14 +86,14 @@ label {
   }
 
   .fortune-box {
-    bottom: 111px !important;
+    bottom: 95px !important;
     left: 65px !important;
     width: 140px !important;
     height: 45px !important;
     height: 43px !important;
   }
   .fortune {
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 
@@ -180,4 +180,11 @@ label {
   height: 30px;
   align-self: center;
   padding-top: 5px;
+}
+
+.terms-of-service {
+  color: white;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 50px;
 }
