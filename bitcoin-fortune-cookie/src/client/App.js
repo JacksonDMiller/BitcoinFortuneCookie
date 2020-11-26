@@ -8,17 +8,6 @@ import closedCookie from "../assets/closed-cookie.png";
 
 function App() {
   const [mode, setMode] = useState("waiting");
-  const [cookiesSold, setCookiesSold] = useState(100);
-
-  useEffect(() => {
-    getCookiesSold();
-  }, []);
-
-  const getCookiesSold = async () => {
-    const res = await fetch("/cookies-sold");
-    const data = await res.json();
-    setCookiesSold(data.numberOfCookies);
-  };
 
   const reset = () => {
     setMode("waiting");
@@ -70,8 +59,6 @@ function App() {
           </p>
         </div>
       ) : null}
-
-      <p>{cookiesSold} cookies sold</p>
 
       <div className="footer">
         <a

@@ -110,11 +110,13 @@ module.exports = function (app) {
   //request a cookie returns an invoice
 
   app.get("/cookies-sold", (req, res) => {
-    Cookies.count({}, (err, c) => {
+    Cookies.countDocuments({ paid: "true" }, (err, c) => {
       if (err) {
+        console.log(err);
         res.send({ numberOfCookies: 200 });
+      } else {
+        res.send({ numberOfCookies: c });
       }
-      res.send({ numberOfCookies: c });
     });
   });
 

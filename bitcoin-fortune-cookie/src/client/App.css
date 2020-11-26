@@ -58,11 +58,11 @@ label {
 .fortune-box {
   display: flex;
   position: absolute;
-  bottom: 155px;
-  left: 105px;
-  width: 220px;
+  bottom: 136px;
+  left: 86px;
+  width: 237px;
   transform: rotate(19deg);
-  height: 65px;
+  height: 72px;
   align-items: center;
   /* background: #f90; */
 }
@@ -86,11 +86,10 @@ label {
   }
 
   .fortune-box {
-    bottom: 95px !important;
-    left: 65px !important;
-    width: 140px !important;
-    height: 45px !important;
-    height: 43px !important;
+    bottom: 88px !important;
+    left: 55px !important;
+    width: 147px !important;
+    height: 46px !important;
   }
   .fortune {
     font-size: 11px;

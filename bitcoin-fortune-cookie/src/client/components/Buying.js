@@ -3,6 +3,7 @@ import closedCookie from "../../assets/closed-cookie.png";
 import Loader from "react-loader-spinner";
 var QRCode = require("qrcode.react");
 let checkForPaymentInterval = null;
+
 export default function Sending(props) {
   const { setMode } = props;
   const [invoice, setInvoice] = useState("");
