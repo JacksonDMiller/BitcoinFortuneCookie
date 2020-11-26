@@ -32,8 +32,6 @@ fs.readFile(`./src/server/fortunes.txt`, "utf8", (err, data) => {
   });
 });
 
-console.log(Cookies.count());
-
 //listen for payments and mark invoices as paid in the database
 sub.on("invoice_updated", async (invoice) => {
   try {
@@ -111,11 +109,19 @@ sub.on("invoice_updated", async (invoice) => {
 module.exports = function (app) {
   //request a cookie returns an invoice
 
+  app.get("/cookies-sold", (req, res) => {
+    Cookies.count({}, (err, c) => {
+      if (err) {
+        res.send({ numberOfCookies: 200 });
+      }
+      res.send({ numberOfCookies: c });
+    });
+  });
+
   app.get("/pay/:invoice", async (req, res) => {
     const doc = await Cookies.findOne({
       invoice: req.params.invoice,
     });
-    console.log(doc);
     doc.paid = true;
     doc.save();
     res.status(200).send();

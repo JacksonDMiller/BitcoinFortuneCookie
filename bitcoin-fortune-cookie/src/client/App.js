@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import logo from "../assets/logo.png";
 import Waiting from "./components/Waiting.js";
@@ -8,8 +8,17 @@ import closedCookie from "../assets/closed-cookie.png";
 
 function App() {
   const [mode, setMode] = useState("waiting");
+  const [cookiesSold, setCookiesSold] = useState(100);
 
-  // 53 seems like a good max maybe 50
+  useEffect(() => {
+    getCookiesSold();
+  }, []);
+
+  const getCookiesSold = async () => {
+    const res = await fetch("/cookies-sold");
+    const data = await res.json();
+    setCookiesSold(data.numberOfCookies);
+  };
 
   const reset = () => {
     setMode("waiting");
@@ -61,6 +70,8 @@ function App() {
           </p>
         </div>
       ) : null}
+
+      <p>{cookiesSold} cookies sold</p>
 
       <div className="footer">
         <a
