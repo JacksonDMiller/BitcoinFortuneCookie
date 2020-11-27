@@ -1,5 +1,5 @@
 body {
-  background-image: linear-gradient(#006ba1, #1e7fbf);
+  background-image: linear-gradient(#1d7bb9, #104d74);
 }
 
 a,
@@ -166,7 +166,7 @@ label {
   align-items: center;
   position: fixed;
   bottom: 0;
-  background-color: #1c7ebd;
+  background-color: #114f76;
   z-index: 5000;
 }
 
