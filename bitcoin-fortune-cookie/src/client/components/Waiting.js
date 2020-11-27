@@ -32,7 +32,11 @@ export default function Waiting(props) {
         </p>
       )}
       <p>
-        Created by <a href="https://twitter.com/JacksonDMiller">@JacksonDMiller</a> and{" "}
+        Developed by:{" "}
+        <a href="https://twitter.com/JacksonDMiller">@JacksonDMiller</a>
+      </p>
+      <p>
+        Designed by:{" "}
         <a href="https://twitter.com/artdesignbySF">@artdesignbySF</a>
       </p>
     </div>
