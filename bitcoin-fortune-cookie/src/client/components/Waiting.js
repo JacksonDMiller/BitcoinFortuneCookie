@@ -31,14 +31,16 @@ export default function Waiting(props) {
           <CountUp end={100} /> cookies sold
         </p>
       )}
-      <p>
-        Developed by:{" "}
-        <a href="https://twitter.com/JacksonDMiller">@JacksonDMiller</a>
-      </p>
-      <p>
-        Designed by:{" "}
-        <a href="https://twitter.com/artdesignbySF">@artdesignbySF</a>
-      </p>
+      <div className="contact-info">
+        <p>
+          Developed by:{" "}
+          <a href="https://twitter.com/JacksonDMiller">@JacksonDMiller</a>
+        </p>
+        <p>
+          Designed by:{" "}
+          <a href="https://twitter.com/artdesignbySF">@artdesignbySF</a>
+        </p>
+      </div>
     </div>
   );
 }
