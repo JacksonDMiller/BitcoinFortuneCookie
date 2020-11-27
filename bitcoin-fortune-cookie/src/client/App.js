@@ -43,7 +43,7 @@ function App() {
             until otherwise notified.
           </p>
           <p>
-            By using the Bitcoin Fortune Cookie website you agree to net send
+            By using the Bitcoin Fortune Cookie website you agree to not send
             any custom Fortunes that go against the Twitter terms of service or
             that will get the Bitcoin Fortune Cookie Twitter Bot banned.
           </p>

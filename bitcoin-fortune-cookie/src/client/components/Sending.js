@@ -132,7 +132,7 @@ export default function Sending(props) {
             maxLength="20"
           />
           <label class="custom-cookie-checkbox-container" htmlFor="check">
-            Write a custom fortune:
+            Write a custom fortune (+1000 sats):
             <input
               id="check"
               type="checkbox"
@@ -144,7 +144,7 @@ export default function Sending(props) {
           {displayCustomMessageInput ? (
             <span className="custom-fortune-input-container">
               <textarea
-                placeholder="a kind and polite fortune"
+                placeholder="a kind and polite fortune."
                 className="custom-fortune-input"
                 name="custom-fortune"
                 value={customFortune}
@@ -168,7 +168,8 @@ export default function Sending(props) {
           {invoice ? (
             <div>
               <p>
-                Pay this invoice to send <br /> this cookie to {recipient}
+                Pay {customFortune ? 1100 : 100} sats to send <br /> this cookie
+                to {recipient}
               </p>
               <QRCode
                 className="qr-code"

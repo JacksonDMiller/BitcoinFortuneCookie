@@ -76,7 +76,7 @@ export default function Sending(props) {
 
       {invoice ? (
         <div>
-          <p>Please pay this invoice to open the cookie</p>
+          <p>Please pay 100 sats to open the cookie</p>
           <QRCode
             className="qr-code"
             value={invoice}

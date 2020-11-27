@@ -151,7 +151,7 @@ module.exports = function (app) {
     let price = 100;
     console.log(req.body);
     if (req.body.customFortune) {
-      price = 1000;
+      price = 1100;
       isCookieCustom = true;
     }
     const invoice = await createInvoice({

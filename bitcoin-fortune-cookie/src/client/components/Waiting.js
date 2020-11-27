@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import CountUp from "react-countup";
 
 export default function Waiting(props) {
   const { setMode } = props;
-  const [cookiesSold, setCookiesSold] = useState(100);
+  const [cookiesSold, setCookiesSold] = useState(null);
 
   useEffect(() => {
     getCookiesSold();
@@ -21,8 +22,19 @@ export default function Waiting(props) {
       <button className="button" onClick={() => setMode("sending")}>
         Send a cookie
       </button>
-
-      <p>{cookiesSold} cookies sold</p>
+      {cookiesSold ? (
+        <p>
+          <CountUp start={200} end={cookiesSold} /> cookies sold
+        </p>
+      ) : (
+        <p>
+          <CountUp end={200} /> cookies sold
+        </p>
+      )}
+      <p>
+        Created by <a href="https://twitter.com/JacksonDMiller">@JacksonDMiller</a> and{" "}
+        <a href="https://twitter.com/artdesignbySF">@artdesignbySF</a>
+      </p>
     </div>
   );
 }
