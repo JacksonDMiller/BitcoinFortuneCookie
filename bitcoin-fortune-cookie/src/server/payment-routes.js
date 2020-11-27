@@ -35,14 +35,11 @@ fs.readFile(`./src/server/fortunes.txt`, "utf8", (err, data) => {
 //listen for payments and mark invoices as paid in the database
 sub.on("invoice_updated", async (invoice) => {
   try {
-    console.log("Inovice_update");
     if (invoice.is_confirmed === true) {
-      console.log("Inovice_Confirmed");
       const doc = await Cookies.findOne({
         invoice: invoice.request,
       });
       if (doc.recipient) {
-        console.log("database lookup complete");
         // Fortune cookie with a recipient has been paid for so send them a tweet.
         // put the the fortune text on the open cookie image
         const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
@@ -67,14 +64,12 @@ sub.on("invoice_updated", async (invoice) => {
           .blit(fontCanvas, 0, 0)
           .writeAsync(`${doc._id}.png`)
           .then(async () => {
-            console.log("image created");
             const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
             client.post(
               "media/upload",
               { media: cookieImage },
               function (error, media, response) {
                 if (error) {
-                  console.log(error);
                 } else {
                   const status = {
                     status: `Hey ${doc.recipient}, \n${doc.sender} sent you a fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`,
@@ -85,9 +80,7 @@ sub.on("invoice_updated", async (invoice) => {
                     status,
                     function (error, tweet, response) {
                       if (error) {
-                        console.log(error);
                       } else {
-                        console.log("Successfully tweeted an image!");
                         fs.unlinkSync(`./${doc._id}.png`);
                       }
                     }
@@ -101,7 +94,6 @@ sub.on("invoice_updated", async (invoice) => {
       doc.save();
     }
   } catch (err) {
-    console.log(err + "catch me");
     res.send({ message: err });
   }
 });
@@ -112,7 +104,6 @@ module.exports = function (app) {
   app.get("/cookies-sold", (req, res) => {
     Cookies.countDocuments({ paid: "true" }, (err, c) => {
       if (err) {
-        console.log(err);
         res.send({ numberOfCookies: 200 });
       } else {
         res.send({ numberOfCookies: c });
@@ -149,7 +140,6 @@ module.exports = function (app) {
   app.post("/request-cookie-delivery/", async (req, res) => {
     let isCookieCustom = false;
     let price = 100;
-    console.log(req.body);
     if (req.body.customFortune) {
       price = 1100;
       isCookieCustom = true;

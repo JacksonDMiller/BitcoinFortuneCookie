@@ -33,7 +33,6 @@ export default function Sending(props) {
   const checkForPayment = (id) => {
     var counter = 0;
     checkForPaymentInterval = setInterval(async () => {
-      console.log("checked");
       counter = counter + 1;
       if (counter === 300) {
         clearInterval(checkForPaymentInterval);

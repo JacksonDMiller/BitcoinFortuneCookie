@@ -25,7 +25,6 @@ export default function Sending(props) {
   const checkForPayment = (id) => {
     var counter = 0;
     checkForPaymentInterval = setInterval(async () => {
-      console.log("checked");
       counter = counter + 1;
       if (counter === 300) {
         clearInterval(checkForPaymentInterval);
@@ -70,7 +69,6 @@ export default function Sending(props) {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.name);
     if (e.target.name === "recipient") {
       setRecipeint(e.target.value);
     }
@@ -81,7 +79,6 @@ export default function Sending(props) {
       setCustomFortune(e.target.value);
     }
     if (e.target.name === "custom") {
-      console.log(e.target.checked);
       setDisplayCustomMessageInput(e.target.checked);
     }
   };
