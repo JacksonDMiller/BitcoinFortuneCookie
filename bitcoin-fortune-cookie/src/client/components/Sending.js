@@ -5,6 +5,7 @@ var QRCode = require("qrcode.react");
 let checkForPaymentInterval = null;
 
 export default function Sending(props) {
+  const { setMode } = props;
   const [readyToSend, setReadyToSend] = useState(false);
   const [sent, setSent] = useState(false);
   const [recipient, setRecipeint] = useState("");
@@ -57,6 +58,11 @@ export default function Sending(props) {
     fetch("/request-cookie-delivery", requestOptions)
       .then((response) => response.json())
       .then((data) => {
+        if (data.error) {
+          alert("Impolite fortune detected.");
+          setReadyToSend(false);
+          return false;
+        }
         setInvoice(data.invoice);
         setTimeout(() => {
           checkForPayment(data._id);
@@ -95,7 +101,7 @@ export default function Sending(props) {
       {!sent ? (
         <img className="cookie-image" src={closedCookie} alt="" />
       ) : (
-        <div>
+        <div className="pointer" onClick={() => setMode("waiting")}>
           <img className="cookie-image" src={src} alt="" />
           <audio src="/sending.mp3" autoPlay></audio>
           <p>A cookie was sent to {recipient}</p>
@@ -128,7 +134,7 @@ export default function Sending(props) {
             type="text"
             maxLength="20"
           />
-          <label class="custom-cookie-checkbox-container" htmlFor="check">
+          <label className="custom-cookie-checkbox-container" htmlFor="check">
             Write a custom fortune (+1000 sats):
             <input
               id="check"

@@ -60,7 +60,10 @@ export default function Sending(props) {
       {/* preloading the cookie animation so it's ready to play when the user pays.*/}
       <img src={src} alt="" style={{ display: "none" }} />
       {fortune ? (
-        <div className="cookie-fortune-container">
+        <div
+          onClick={() => setMode("waiting")}
+          className="cookie-fortune-container pointer"
+        >
           <img className="cookie-image" src={src} alt="" />
           <audio src="/crack.mp3" autoPlay></audio>
           <div className="fortune-box">

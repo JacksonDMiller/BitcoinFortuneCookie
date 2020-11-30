@@ -9,6 +9,7 @@ label {
 }
 
 .logo {
+  cursor: pointer;
   max-width: 60%;
   margin-left: auto;
   margin-right: auto;
@@ -193,4 +194,8 @@ label {
   font-weight: 100;
   font-size: 12px;
   line-height: 0.4;
+}
+
+.pointer {
+  cursor: pointer;
 }

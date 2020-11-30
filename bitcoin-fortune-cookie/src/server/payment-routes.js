@@ -140,6 +140,11 @@ module.exports = function (app) {
   app.post("/request-cookie-delivery/", async (req, res) => {
     let isCookieCustom = false;
     let price = 100;
+    if (filter.isProfane(req.body.customFortune)) {
+      console.log("naughty");
+      res.send({ error: "profane" });
+      return false;
+    }
     if (req.body.customFortune) {
       price = 1100;
       isCookieCustom = true;
