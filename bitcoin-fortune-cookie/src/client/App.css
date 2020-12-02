@@ -9,7 +9,6 @@ label {
 }
 
 .logo {
-  cursor: pointer;
   max-width: 60%;
   margin-left: auto;
   margin-right: auto;
@@ -39,6 +38,7 @@ label {
   margin: 5px;
   width: 220px;
   border: none;
+  cursor: pointer;
 }
 
 .cookie-image {
@@ -190,6 +190,10 @@ label {
   margin-bottom: 50px;
 }
 
+.terms-of-service p {
+  text-align: left;
+}
+
 .contact-info {
   font-weight: 100;
   font-size: 12px;
@@ -198,4 +202,8 @@ label {
 
 .pointer {
   cursor: pointer;
+}
+
+.payment-check-button {
+  margin-bottom: 50px;
 }

@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="container">
       <img src={closedCookie} alt="" style={{ display: "none" }} />
-      <img className="logo" onClick={reset} src={logo} alt="Logo" />
+      <img className="logo pointer" onClick={reset} src={logo} alt="Logo" />
       {mode === "waiting" ? <Waiting setMode={setMode} /> : null}
       {mode === "buying" ? <Buying setMode={setMode} /> : null}
       {mode === "sending" ? <Sending setMode={setMode} /> : null}

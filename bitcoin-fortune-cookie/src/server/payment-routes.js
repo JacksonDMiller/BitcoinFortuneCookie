@@ -193,23 +193,24 @@ module.exports = function (app) {
 
   const test = async () => {
     doc = {
-      fortune: "1 Satoshi = 1 Satoshi 1 Satoshi = 1 Satoshi 1 Satoshi",
+      fortune:
+        "Bitcoin has made your central banks and manipulation of the money obsolete",
       _id: 1654655555,
     };
-    const font = await Jimp.loadFont("http://192.168.0.33:3000/roboto.fnt");
+    const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
     const fontCanvas = await Jimp.create(1200, 675);
     const destImage = await Jimp.read("./src/assets/opened-cookie.png");
     fontCanvas
       .print(
         font,
-        120,
+        80,
         155,
         {
           text: doc.fortune,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
         },
-        420
+        500
       )
       .rotate(-19);
     destImage
@@ -219,5 +220,5 @@ module.exports = function (app) {
         setTimeout(async () => {}, 5000);
       });
   };
-  // test();
+  test();
 };

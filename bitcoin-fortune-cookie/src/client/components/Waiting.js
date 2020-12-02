@@ -16,6 +16,7 @@ export default function Waiting(props) {
   };
   return (
     <div className="waiting-page-button-container">
+      <p>Open or send a digital fortune cookie. Powered by Bitcoin!</p>
       <button className="button" onClick={() => setMode("buying")}>
         Buy a cookie
       </button>
@@ -33,11 +34,8 @@ export default function Waiting(props) {
       )}
       <div className="contact-info">
         <p>
-          Developed by:{" "}
-          <a href="https://twitter.com/JacksonDMiller">@JacksonDMiller</a>
-        </p>
-        <p>
-          Designed by:{" "}
+          Developed & designed by:{" "}
+          <a href="https://twitter.com/JacksonDMiller">@JacksonDMiller</a> &{" "}
           <a href="https://twitter.com/artdesignbySF">@artdesignbySF</a>
         </p>
       </div>
