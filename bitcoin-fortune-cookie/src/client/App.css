@@ -9,11 +9,11 @@ label {
 }
 
 .logo {
-  max-width: 60%;
+  max-width: 50%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 15px;
+  margin-bottom: 30px;
 }
 
 .container {
@@ -26,6 +26,7 @@ label {
   /* background-color: red; */
   min-height: 100vh;
   justify-content: space-around;
+  margin-bottom: 30px;
 }
 
 .button {
@@ -163,7 +164,6 @@ label {
   width: 100%;
   display: flex;
   justify-content: space-around;
-  max-width: 600px;
   align-items: center;
   position: fixed;
   bottom: 0;
@@ -205,5 +205,6 @@ label {
 }
 
 .payment-check-button {
-  margin-bottom: 50px;
+  text-decoration: underline;
+  padding-bottom: 50px;
 }

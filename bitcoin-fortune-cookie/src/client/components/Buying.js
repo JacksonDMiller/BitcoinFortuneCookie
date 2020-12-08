@@ -19,8 +19,8 @@ export default function Sending(props) {
     const res = await fetch(`/request-cookie/`);
     let data = await res.json();
     setInvoice(data.cookie.invoice);
+    setCookieId(data.cookie._id);
     setTimeout(() => {
-      setCookieId(data.cookie._id);
       checkForPayment(data.cookie._id);
     }, 1000);
   };
@@ -38,7 +38,7 @@ export default function Sending(props) {
     var counter = 0;
     checkForPaymentInterval = setInterval(async () => {
       counter = counter + 1;
-      if (counter === 5) {
+      if (counter === 300) {
         setPaymentNotFound(true);
         clearInterval(checkForPaymentInterval);
       }
@@ -84,24 +84,25 @@ export default function Sending(props) {
       {invoice ? (
         <div>
           <p>Please pay 100 sats to open the cookie</p>
-          <p>
-            <a href={`lightning:${invoice}`}>Open lightning wallet</a>
-          </p>
+
           <QRCode
             className="qr-code"
             value={invoice}
             size={200}
             style={{ background: "white", padding: "10px" }}
           />
+
           {paymentNotFound ? (
             <p
-              className="payment-check-button"
+              className="payment-check-button pointer"
               onClick={() => checkForPayment(cookieId)}
             >
-              <a href="#">Check for payment</a>
+              Payment not found. Click here to Check again.
             </p>
           ) : (
-            <Loader type="Bars" color="#fff" height={40} width={80} />
+            <p>
+              <a href={`lightning:${invoice}`}>Open lightning wallet</a>
+            </p>
           )}
         </div>
       ) : (

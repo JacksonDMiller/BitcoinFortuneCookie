@@ -15,6 +15,9 @@ export default function Sending(props) {
   const [displayCustomMessageInput, setDisplayCustomMessageInput] = useState(
     false
   );
+  const [cookieId, setCookieId] = useState("");
+  const [paymentNotFound, setPaymentNotFound] = useState(false);
+
   const [src, setSrc] = useState("/sending-cookie.gif?a=" + Math.random());
 
   useEffect(() => {
@@ -24,10 +27,12 @@ export default function Sending(props) {
     };
   }, []);
   const checkForPayment = (id) => {
+    setPaymentNotFound(false);
     var counter = 0;
     checkForPaymentInterval = setInterval(async () => {
       counter = counter + 1;
       if (counter === 300) {
+        setPaymentNotFound(true);
         clearInterval(checkForPaymentInterval);
       }
       const res = await fetch("/check-for-payment/" + id);
@@ -64,6 +69,7 @@ export default function Sending(props) {
           return false;
         }
         setInvoice(data.invoice);
+        setCookieId(data._id);
         setTimeout(() => {
           checkForPayment(data._id);
         }, 1000);
@@ -171,8 +177,8 @@ export default function Sending(props) {
           {invoice ? (
             <div>
               <p>
-                Pay {customFortune ? 1100 : 100} sats to send <br /> this cookie
-                to {recipient}
+                Pay {customFortune ? 1100 : 100} sats to send this cookie to{" "}
+                {recipient}
               </p>
               <QRCode
                 className="qr-code"
@@ -180,9 +186,18 @@ export default function Sending(props) {
                 size={200}
                 style={{ background: "white", padding: "10px" }}
               />
-              <p>
-                <a href={`lightning:${invoice}`}>Open your wallet</a>
-              </p>
+              {paymentNotFound ? (
+                <p
+                  className="payment-check-button pointer"
+                  onClick={() => checkForPayment(cookieId)}
+                >
+                  Payment not found. Click here to Check again.
+                </p>
+              ) : (
+                <p>
+                  <a href={`lightning:${invoice}`}>Open lightning wallet</a>
+                </p>
+              )}
               <button
                 style={{ position: "absolute", top: 0, left: 0 }}
                 onClick={pay}
