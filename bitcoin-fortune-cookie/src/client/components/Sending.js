@@ -95,9 +95,10 @@ export default function Sending(props) {
     }
   };
 
-  const pay = () => {
-    fetch(`/pay/${invoice}`);
-  };
+  // quick pay for testing
+  // const pay = () => {
+  //   fetch(`/pay/${invoice}`);
+  // };
 
   return (
     <div>
@@ -194,16 +195,17 @@ export default function Sending(props) {
                   Payment not found. Click here to Check again.
                 </p>
               ) : (
-                <p>
+                <p className="last-thing">
                   <a href={`lightning:${invoice}`}>Open lightning wallet</a>
                 </p>
               )}
-              <button
+              {/* quick pay for testing */}
+              {/* <button
                 style={{ position: "absolute", top: 0, left: 0 }}
                 onClick={pay}
               >
                 pay
-              </button>
+              </button> */}
             </div>
           ) : (
             <span>

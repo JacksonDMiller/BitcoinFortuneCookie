@@ -206,5 +206,8 @@ label {
 
 .payment-check-button {
   text-decoration: underline;
-  padding-bottom: 50px;
+}
+
+.last-thing {
+  padding-bottom: 15px;
 }

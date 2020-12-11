@@ -111,14 +111,15 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/pay/:invoice", async (req, res) => {
-    const doc = await Cookies.findOne({
-      invoice: req.params.invoice,
-    });
-    doc.paid = true;
-    doc.save();
-    res.status(200).send();
-  });
+  //testing
+  // app.get("/pay/:invoice", async (req, res) => {
+  //   const doc = await Cookies.findOne({
+  //     invoice: req.params.invoice,
+  //   });
+  //   doc.paid = true;
+  //   doc.save();
+  //   res.status(200).send();
+  // });
 
   app.get("/request-cookie/", async (req, res) => {
     const invoice = await createInvoice({

@@ -56,9 +56,9 @@ export default function Sending(props) {
   };
 
   // quick pay for testing
-  const pay = () => {
-    fetch(`/pay/${invoice}`);
-  };
+  // const pay = () => {
+  //   fetch(`/pay/${invoice}`);
+  // };
 
   return (
     <div className="mode-container">
@@ -94,13 +94,13 @@ export default function Sending(props) {
 
           {paymentNotFound ? (
             <p
-              className="payment-check-button pointer"
+              className="payment-check-button pointer last-thing"
               onClick={() => checkForPayment(cookieId)}
             >
               Payment not found. Click here to Check again.
             </p>
           ) : (
-            <p>
+            <p className="last-thing">
               <a href={`lightning:${invoice}`}>Open lightning wallet</a>
             </p>
           )}
@@ -112,9 +112,9 @@ export default function Sending(props) {
           ) : null}
         </span>
       )}
-      <button style={{ position: "absolute", top: 0, left: 0 }} onClick={pay}>
+      {/* <button style={{ position: "absolute", top: 0, left: 0 }} onClick={pay}>
         pay
-      </button>
+      </button> */}
     </div>
   );
 }

@@ -25,11 +25,11 @@ export default function Waiting(props) {
       </button>
       {cookiesSold ? (
         <p>
-          <CountUp start={100} end={cookiesSold} /> cookies sold
+          <CountUp start={10} end={cookiesSold} /> cookies sold
         </p>
       ) : (
         <p>
-          <CountUp end={100} /> cookies sold
+          <CountUp end={10} /> cookies sold
         </p>
       )}
       <div className="contact-info">
