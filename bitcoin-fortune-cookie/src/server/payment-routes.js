@@ -73,7 +73,7 @@ sub.on("invoice_updated", async (invoice) => {
                 } else {
                   const status = {
                     status: `Hey ${doc.recipient}, \n${doc.sender} sent you a ${
-                      doc.custom ? "custom" : null
+                      doc.custom ? "custom" : ""
                     } fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`,
                     media_ids: media.media_id_string,
                   };
