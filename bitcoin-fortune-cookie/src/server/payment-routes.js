@@ -65,31 +65,31 @@ sub.on("invoice_updated", async (invoice) => {
           .writeAsync(`${doc._id}.png`)
           .then(async () => {
             const cookieImage = await fs.readFileSync(`./${doc._id}.png`);
-            client.post(
-              "media/upload",
-              { media: cookieImage },
-              function (error, media, response) {
-                if (error) {
-                } else {
-                  const status = {
-                    status: `Hey ${doc.recipient}, \n${doc.sender} sent you a${
-                      doc.custom ? " custom" : ""
-                    } fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`,
-                    media_ids: media.media_id_string,
-                  };
-                  client.post(
-                    "statuses/update",
-                    status,
-                    function (error, tweet, response) {
-                      if (error) {
-                      } else {
-                        fs.unlinkSync(`./${doc._id}.png`);
-                      }
-                    }
-                  );
-                }
-              }
-            );
+            // client.post(
+            //   "media/upload",
+            //   { media: cookieImage },
+            //   function (error, media, response) {
+            //     if (error) {
+            //     } else {
+            //       const status = {
+            //         status: `Hey ${doc.recipient}, \n${doc.sender} sent you a${
+            //           doc.custom ? " custom" : ""
+            //         } fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`,
+            //         media_ids: media.media_id_string,
+            //       };
+            //       client.post(
+            //         "statuses/update",
+            //         status,
+            //         function (error, tweet, response) {
+            //           if (error) {
+            //           } else {
+            //             fs.unlinkSync(`./${doc._id}.png`);
+            //           }
+            //         }
+            //       );
+            //     }
+            //   }
+            // );
           });
       }
       doc.paid = true;
@@ -194,40 +194,43 @@ module.exports = function (app) {
     res.status(402).send();
   });
 
-  // const test = async () => {
-  //   doc = {
-  //     fortune:
-  //       "Bitcoin has made your central banks and manipulation of the money obsolete",
-  //     _id: 1654655555,
-  //     custom: false,
-  //   };
-  //   const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
-  //   const fontCanvas = await Jimp.create(1200, 675);
-  //   const destImage = await Jimp.read("./src/assets/opened-cookie.png");
-  //   fontCanvas
-  //     .print(
-  //       font,
-  //       80,
-  //       155,
-  //       {
-  //         text: doc.fortune,
-  //         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
-  //         alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
-  //       },
-  //       500
-  //     )
-  //     .rotate(-19);
-  //   destImage
-  //     .blit(fontCanvas, 0, 0)
-  //     .writeAsync(`${doc._id}.png`)
-  //     .then(async () => {
-  //       setTimeout(async () => {}, 5000);
-  //     });
-  //   console.log(
-  //     `Hey ${doc.recipient}, \n${doc.sender} sent you a ${
-  //       doc.custom ? "custom" : null
-  //     } fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`
-  //   );
-  // };
-  // test();
+  const test = async () => {
+    doc = {
+      fortune:
+        "Bitcoin has made your central banks and manipulation of the money don't obsolete",
+      _id: 1654655555,
+      custom: true,
+      recipient: "Jackson",
+      sender: "@Jackson",
+    };
+    const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
+    const fontCanvas = await Jimp.create(1200, 675);
+    const destImage = await Jimp.read("./src/assets/opened-cookie.png");
+    fontCanvas
+      .print(
+        font,
+        80,
+        155,
+        {
+          text: doc.fortune,
+          alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+          alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
+        },
+        500
+      )
+      .rotate(-19);
+    destImage
+      .blit(fontCanvas, 0, 0)
+      .writeAsync(`${doc._id}.png`)
+      .then(async () => {
+        setTimeout(async () => {}, 5000);
+      });
+    console.log(
+      `Hey ${doc.recipient}, \n${doc.sender} sent you a${
+        doc.custom ? " custom" : ""
+      } fortune cookie.\n\nSend a cookie back at BitcoinFortuneCookie.com`
+    );
+    console.log(fortunes);
+  };
+  test();
 };
