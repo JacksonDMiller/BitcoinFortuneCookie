@@ -16,13 +16,13 @@ export default function Waiting(props) {
   };
   return (
     <div className="waiting-page-button-container">
-      <p>Open or send a digital fortune cookie. Powered by Bitcoin!</p>
+      <p>Open a digital fortune cookie. Powered by Bitcoin!</p>
       <button className="button" onClick={() => setMode("buying")}>
         Buy a cookie
       </button>
-      <button className="button" onClick={() => setMode("sending")}>
+      {/* <button className="button" onClick={() => setMode("sending")}>
         Send a cookie
-      </button>
+      </button> */}
       {cookiesSold ? (
         <p>
           <CountUp start={10} end={cookiesSold} /> cookies sold
