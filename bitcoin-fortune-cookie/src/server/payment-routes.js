@@ -9,6 +9,7 @@ const { lnd } = authenticatedLndGrpc(keys.lnd);
 const sub = subscribeToInvoices({ lnd });
 fs = require("fs");
 let fortunes = "";
+let lastTweet = new Date() - 1800000;
 var Twitter = require("twitter");
 var Jimp = require("jimp");
 
@@ -40,6 +41,9 @@ sub.on("invoice_updated", async (invoice) => {
         invoice: invoice.request,
       });
       if (doc.recipient) {
+        if (new Date() - lastTweet < 1700000) {
+          throw "Tweeting too Quickly";
+        }
         // Fortune cookie with a recipient has been paid for so send them a tweet.
         // put the the fortune text on the open cookie image
         const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
@@ -88,16 +92,16 @@ sub.on("invoice_updated", async (invoice) => {
                     }
                   );
                 }
-
               }
             );
           });
       }
+      lastTweet = new Date();
       doc.paid = true;
       doc.save();
     }
   } catch (err) {
-    res.send({ message: err });
+    console.log(error);
   }
 });
 
@@ -112,6 +116,14 @@ module.exports = function (app) {
         res.send({ numberOfCookies: c });
       }
     });
+  });
+
+  app.get("/ready-to-tweet", (req, res) => {
+    if (new Date() - lastTweet > 1800000) {
+      res.send({ message: true });
+      return;
+    }
+    res.send({ message: false });
   });
 
   //testing
