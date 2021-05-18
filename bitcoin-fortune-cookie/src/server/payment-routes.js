@@ -95,8 +95,8 @@ sub.on("invoice_updated", async (invoice) => {
               }
             );
           });
+        lastTweet = new Date();
       }
-      lastTweet = new Date();
       doc.paid = true;
       doc.save();
     }
